@@ -18,9 +18,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Sparkle } from "lucide-react";
+import { Loader2Icon, Sparkle } from "lucide-react";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 function AddNewCourseDialog({ children }) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -29,6 +33,7 @@ function AddNewCourseDialog({ children }) {
     level: "",
     category: "",
   });
+  const router = useRouter();
 
   const onHandleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -38,8 +43,22 @@ function AddNewCourseDialog({ children }) {
     console.log(formData);
   };
 
-  const onGenerate = () => {
+  const onGenerate = async () => {
     console.log("Generating course with data:", formData);
+    const courseId = uuidv4();
+    try {
+      setLoading(true);
+      const result = await axios.post("/api/generate-course-layout", {
+        ...formData,
+        courseId: courseId,
+      });
+      console.log("Generated Course Layout:", result.data);
+      setLoading(false);
+      router.push("workspace/edit-course/" + result.data?.courseId);
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
+    }
   };
 
   return (
@@ -111,9 +130,17 @@ function AddNewCourseDialog({ children }) {
                 ></Input>
               </div>
               <div className="mt-5">
-                <Button className={"w-full"} onClick={onGenerate}>
+                <Button
+                  className={"w-full"}
+                  onClick={onGenerate}
+                  disabled={loading}
+                >
                   {" "}
-                  <Sparkle />
+                  {loading ? (
+                    <Loader2Icon className="animate-spin" />
+                  ) : (
+                    <Sparkle />
+                  )}
                   Generate Course
                 </Button>
               </div>
