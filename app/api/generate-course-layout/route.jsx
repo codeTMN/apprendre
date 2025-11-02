@@ -36,13 +36,14 @@ Schema:
 
 `;
 
+export const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
+
 export async function POST(req) {
   const { courseId, ...formData } = await req.json();
   const user = await currentUser();
 
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
   const config = {
     thinkingConfig: {
       thinkingBudget: -1,
@@ -106,8 +107,8 @@ const GenerateImage = async (imagePrompt) => {
     },
     {
       headers: {
-        "x-api-key": process?.env?.AI_GURU_LAB_API_KEY, // Your API Key
-        "Content-Type": "application/json", // Content Type
+        "x-api-key": process?.env?.AI_GURU_LAB_API_KEY,
+        "Content-Type": "application/json",
       },
     }
   );

@@ -1,0 +1,50 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
+import CourseCard from "../_components/CourseCard";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function Explore() {
+  const [courseList, setCourseList] = useState([]);
+  const { user } = useUser();
+  useEffect(() => {
+    user && GetCourseList();
+  }, [user]);
+
+  const GetCourseList = async () => {
+    // Fetch list of courses from the database
+    const result = await axios.get("/api/courses?courseId=0");
+    console.log("Course List:", result.data);
+    setCourseList(result.data);
+  };
+  return (
+    <div>
+      <h2 className="font-bold text-3xl mb-6">Explore More Courses</h2>
+      <div className="flex gap-5 max-w-md">
+        <Input placeholder="Search for courses..." />
+        <Button>
+          <Search /> Search
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-5">
+        {courseList.length > 0
+          ? courseList?.map((course, index) => (
+              <CourseCard
+                key={index}
+                course={course}
+                refreshData={GetCourseList}
+              />
+            ))
+          : [0, 1, 2, 3].map((item, index) => (
+              <Skeleton key={index} className="w-full h-[240px]" />
+            ))}
+      </div>
+    </div>
+  );
+}
+
+export default Explore;

@@ -4,10 +4,12 @@ import axios from "axios";
 import { User } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { UserDetailContext } from "../context/UserDetailContext";
+import { SelectedChapterIndexContext } from "@/context/SelectedChapterIndexContext";
 
 function Provider({ children }) {
   const { user } = useUser();
   const [userDetail, setUserDetail] = useState();
+  const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
 
   useEffect(() => {
     user && CreateNewUser();
@@ -23,7 +25,11 @@ function Provider({ children }) {
   };
   return (
     <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-      <div>{children}</div>
+      <SelectedChapterIndexContext.Provider
+        value={{ selectedChapterIndex, setSelectedChapterIndex }}
+      >
+        <div>{children}</div>
+      </SelectedChapterIndexContext.Provider>
     </UserDetailContext.Provider>
   );
 }

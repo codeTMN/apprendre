@@ -34,17 +34,12 @@ const SideBarOptions = [
   {
     title: "My Learning",
     icon: Book,
-    path: "/workspace/my-courses",
+    path: "/workspace/my-learning",
   },
   {
     title: "Explore Courses",
     icon: Compass,
     path: "/workspace/explore",
-  },
-  {
-    title: "AI Tools",
-    icon: PencilRulerIcon,
-    path: "/woerkspace/ai-tools",
   },
   {
     title: "Billing",
@@ -60,7 +55,7 @@ const SideBarOptions = [
 
 function AppSidebar() {
   const path = usePathname();
-  console.log("Current Pathname:", path);
+  // console.log("Current Pathname:", path);
   return (
     <Sidebar>
       <SidebarHeader className={"p-4"}>
