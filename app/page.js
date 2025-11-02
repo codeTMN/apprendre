@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
@@ -72,11 +71,18 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="mt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-purple-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(255,255,255,0.1)_1px,_transparent_1px)] bg-[length:50px_50px] animate-[moveGrid_20s_linear_infinite]" />
+      <section className="mt-20 min-h-screen flex items-center justify-center relative overflow-hidden">
+        <Image 
+          src="/hero-img.webp" 
+          alt="Hero Background" 
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 to-purple-600/80" />
         <div className="text-center text-white z-10 px-6 max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-[fadeInUp_1s_ease-out]">
-            Unlock Your Potential with AI-Powered Learning 🚀
+            Unlock Your Potential with Apprendre – AI-Powered Learning Platform 🚀
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 animate-[fadeInUp_1s_ease-out_0.2s_backwards]">
             Experience personalized education that adapts to your unique learning style and pace
@@ -216,7 +222,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 text-center">
-        <p>&copy; 2024 AI Learning Platform. All rights reserved.</p>
+        <p>&copy; 2025 Apprendre Learning Platform. All rights reserved.</p>
       </footer>
 
       <style jsx>{`
