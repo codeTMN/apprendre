@@ -42,11 +42,6 @@ const SideBarOptions = [
     path: "/workspace/explore",
   },
   {
-    title: "Billing",
-    icon: WalletCards,
-    path: "/workspace/billing",
-  },
-  {
     title: "Profile",
     icon: UserCircle2Icon,
     path: "/workspace/profile",
